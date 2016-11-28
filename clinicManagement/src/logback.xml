@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<!-- 日志的使用原则：
+	1.日志配置文件名固定名称logback.xml，不允许修改；位置固定在classpath下（即开发时跟src目录平行，生产部署时直接放在WEB-INF/classes目录下）
+	2.开发模式一律使用DEBUG级别，只打开STDOUT控制台appender即可，不必打开文件appender。开发java代码中最宽松也只使用到DEBUG级别。
+	3.生产模式一律使用ERROR级别，且业务日志和sql日志按日期分文件存放；文件的命名都采用BUSI_%d{yyyy-MM-dd-HH}_%i.log和SQL_%d{yyyy-MM-dd-HH}_%i.log
+	 -->
+	 
+	<!--定义日志文件的存储地址 勿在 LogBack 的配置中使用相对路径-->  
+    <property name="LOG_HOME" value="F:/log" />
+    <property name="PROJECT_NAME" value="CLINIC" /> 
+      
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"> 
+		<layout class="ch.qos.logback.classic.PatternLayout">  
+        	<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %logger{80}[%L] - %msg%n</Pattern>
+		</layout>
+  	</appender>    
+    
+    <!-- 按小时及序号，以固定文件大小滚动业务日志 。建议保存30个小时，每个文件大小10MB。-->
+  	<appender name="BUSI" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<layout class="ch.qos.logback.classic.PatternLayout">  
+        	<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %logger{80}[%L] - %msg%n</Pattern>  
+		</layout>
+      	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      		<fileNamePattern>${LOG_HOME}/${PROJECT_NAME}/BUSI_%d{yyyy-MM-dd-HH}_%i.log</fileNamePattern>
+      		<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+        		<maxFileSize>10MB</maxFileSize>
+      		</timeBasedFileNamingAndTriggeringPolicy>
+      		<maxHistory>30</maxHistory>
+    	</rollingPolicy>
+  	</appender>
+  	<!-- 按小时及序号，以固定文件大小滚动sql日志。建议保存30个小时，每个文件大小10MB。 -->
+  	<appender name="SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    	<layout class="ch.qos.logback.classic.PatternLayout">  
+        	<Pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5level] %logger{80}[%L] - %msg%n</Pattern>
+		</layout>
+      	<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      		<fileNamePattern>${LOG_HOME}/${PROJECT_NAME}/SQL_%d{yyyy-MM-dd-HH}_%i.log</fileNamePattern>
+      		<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+      			<maxFileSize>10MB</maxFileSize>
+      		</timeBasedFileNamingAndTriggeringPolicy>
+      		<maxHistory>30</maxHistory>
+    	</rollingPolicy>
+  	</appender>
+  	
+	<!-- 指定sql日志-->
+	<logger name="org.piggy.core.log.DBLoggingAspect" level="DEBUG" >
+		<appender-ref ref="SQL" />
+	</logger>
+	
+    <!-- 项目整体的日志输出级别 TRACE、DEBUG、INFO、WARN 和 ERROR-->
+    <root level="DEBUG">    
+        <appender-ref ref="STDOUT" /> 
+        <appender-ref ref="BUSI" />  
+    </root> 
+</configuration>

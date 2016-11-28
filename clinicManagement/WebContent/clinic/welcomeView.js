@@ -1,0 +1,3 @@
+(function(){
+	Ext.onReady(function(){});
+})();

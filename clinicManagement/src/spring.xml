@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 使用说明：1 名称固定为spring.xml，不得更改；2 【固定内容】部分不允许随意删除和更改。 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+		
+<!-- 【固定内容】开始 -->
+		
+		<!-- 配置自动扫描的包。这里就是将注解为bean的类实例化 -->
+		<context:component-scan base-package="org.piggy"></context:component-scan>
+		
+		<!-- 配置c3p0数据源 -->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+			<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+			<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/clinic"></property>
+			<property name="user" value="clinic"></property>
+			<property name="password" value="clinic"></property>
+			<property name="initialPoolSize" value="10"></property>
+			<property name="minPoolSize" value="10"></property>
+			<property name="acquireIncrement" value="1"></property>
+			<property name="maxPoolSize" value="100"></property>
+			<property name="maxIdleTime" value="100"></property>
+			<property name="acquireRetryAttempts" value="30"></property>
+			<property name="acquireRetryDelay" value="1000"></property>
+			<property name="unreturnedConnectionTimeout" value="60"></property>
+			<property name="debugUnreturnedConnectionStackTraces" value="true"></property>
+		</bean>
+		
+		<!-- 配置spring NamedParameterJdbcTemplate -->
+		<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+			<constructor-arg ref="dataSource"></constructor-arg>
+		</bean>
+		
+		<!-- 配置事务管理器 -->
+		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="dataSource"></property>
+		</bean>
+		
+		<!-- 配置事务属性 -->
+		<!-- 默认事务配置为：【传播行为是Propagation.REQUIRED】 【隔离级别是Isolation.READ_COMMITTED】【默认出现任何运行时异常时回滚，这里改成出现异常即回滚】-->
+		<tx:advice id="transactionAdvice" transaction-manager="transactionManager">
+			<tx:attributes>
+				<tx:method name="*" isolation="READ_COMMITTED" propagation="REQUIRED" rollback-for="java.lang.Exception"/>
+			</tx:attributes>
+		</tx:advice>
+		
+		<!-- 要切入的服务日志 -->
+		<bean id="serviceLogBean" class="org.piggy.core.log.ServiceLoggingAspect"/>
+		
+		<!-- 配置事务切入点 -->
+		<aop:config>
+			<!-- 配置事务切入表达式。即对所有实现了BaseService接口的类的doAtomService方法都使用默认事务配置。 -->
+			<aop:pointcut expression="execution(* org.piggy.core.services.BaseService.doAtomService(..))" id="transactionPointCut"/>
+			<aop:advisor advice-ref="transactionAdvice" pointcut-ref="transactionPointCut"/>
+		</aop:config>
+		<!-- 配置服务日志切入点 -->
+		<aop:config>
+			<!-- 配置日志切入表达式。即对所有实现了BaseService接口的类的doAtomService或doQueryService方法都切入日志。  -->
+			<aop:pointcut expression="execution(* org.piggy.core.services.BaseService.doAtomService(..)) or execution(* org.piggy.core.services.BaseService.doQueryService(..))" id="serviceLogPointCut"/>
+			<aop:aspect ref="serviceLogBean">
+				<aop:around method="aroundMethod" pointcut-ref="serviceLogPointCut"/>
+			</aop:aspect>
+		</aop:config>
+		
+<!-- 【固定内容】结束 -->
+</beans>
