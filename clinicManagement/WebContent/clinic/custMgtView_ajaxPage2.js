@@ -3,13 +3,13 @@
 	Ext.onReady(function(){
 		//这一句是启用所有的悬浮提示
 		Ext.QuickTips.init();
-		
+		Ext.form.Field.prototype.msgTarget="under";
 		//搜索框
-		var searchForm = new Ext.form.FormPanel({
+		var searchForm = new Ext.panel.Panel({
 			height:45,
-			width: '100%',
 			layout: 'column',
 			bodyStyle: 'padding:10px 5px 0',
+			border:0,
 			items : [
 						{
 							border:0,
@@ -40,12 +40,8 @@
 						},{
 							xtype:'button',
 							text: '查询',
-							handler: function(){
-								custStore.currentPage=1;
-		    					custStore.load({ params: { start: 0, limit: 10} });
-							}
+							handler: doSearch
 						}
-					
 				]
 		});
 		
@@ -102,8 +98,7 @@
                 enableTextSelection:true  
             },
 		    columnLines:true,
-		    height: 325,
-		    width: '100%'
+		    height: 325
 		});
 		
 		//隐藏那个刷新按钮
@@ -130,67 +125,79 @@
 			this.proxy.extraParams = searchParams;
 		});
 		
-		custGrid.addListener('itemclick',itemclick);
-		custGrid.addListener('itemdbclick',itemdbclick);
+		custGrid.addListener('selectionchange',selectionchange);
+		custGrid.addListener('itemdblclick',itemdblclick);
 		
 		//展示客户信息的表单
-		var custForm = new Ext.form.FormPanel({
+		var custForm = new Ext.form.Panel({
+					id:"custFieldset",
 					buttonAlign : 'center',
-					boder : 0,
-					width : '100%',
+					border:0,
 					items : [{
 								layout : 'hbox',
-								boder : 0,
-								items : [{
-											width:180,
-											layout : 'form',
-											xtype : 'fieldset',
-											height:284,
-											align : 'right',
-											title : '客户照片 ',
-											items : [	{
-												    		xtype:'image',
-												    		border:0,
-												    		src:g_GlobalInfo.webRoot+'images/custPhoto/chui2.png'
-											    		}, {
-															buttonText: '选择照片',
-															xtype: 'filefield',
-															name : 'ICON',
-															hideLabel: true
-														},{
-															xtype:'button',
-															text: '上传',
-															handler: function(){
-															}
-														}
-											    	]
-										}, {
+								frame:false,
+								border : 0,
+								items : [
+//									{
+//											id:'photo',
+//											width:180,
+//											layout : 'form',
+//											xtype : 'fieldset',
+//											disabled:true,
+//											height:284,
+//											align : 'right',
+//											title : '客户照片 ',
+//											items : [	{
+//												    		xtype:'image',
+//												    		border:0,
+//												    		src:g_GlobalInfo.webRoot+'images/custPhoto/chui2.png'
+//											    		}, {
+//															buttonText: '选择照片',
+//															xtype: 'filefield',
+//															name : 'ICON',
+//															hideLabel: true
+//														},{
+//															xtype:'button',
+//															text: '上传',
+//															handler: function(){
+//															}
+//														}
+//											    	]
+//										}, 
+											{
+											id:'basicInfo',
 											width:'100%',
 											layout : 'anchor',
 											xtype : 'fieldset',
+											disabled:true,
 											autoHeight : true,
 											height:284,
 											style : 'margin-left:10px',
 											defaultType : 'textfield',
 											title : '客户信息',
 											items : [{
+														id:"custId",
 														fieldLabel : 'CUST_ID',
 														name : 'CUST_ID',
 														hidden : true
 													}, {
+														id:"custName",
 														fieldLabel : custName,
 														name : 'CUST_NAME',
 														labelAlign : 'right',
 														anchor: '30%',
 														allowBlank: false,
+														blankText:"客户姓名不可以为空!",
 														afterLabelTextTpl:'<span style="color:red;font-weight:bold" data-qtip="必填项">*</span>'
 													}, {
+														id:"sex",
 														fieldLabel : sex,
 														xtype: 'combobox',
 														name : 'SEX',
 														labelAlign : 'right',
 														anchor: '30%',
 														allowBlank: false,
+														blankText:"客户性别不可以为空!",
 														store: {
 													            fields: ['value', 'label'],
 													            data : [
@@ -203,27 +210,34 @@
 													    valueField: 'value',
 													    afterLabelTextTpl:'<span style="color:red;font-weight:bold" data-qtip="必填项">*</span>'
 													}, {
+														id:"birthSelector",
 														fieldLabel : birthday,
 														name : 'BIRTHDAY',
 														labelAlign : 'right',
 														xtype: 'datefield',
-														anchor: '30%'
+														anchor: '30%',
+														emptyText: "--请选择--",
+   														format: "Y年m月d日"//日期的格式
 													}, {
+														id:"phoneNumber",
 														fieldLabel : phoneNumber,
 														name : 'PHONENUMBER',
 														labelAlign : 'right',
 														anchor: '30%',
 														allowBlank: false,
+														blankText:"客户手机号不可以为空!",
 														minLength: 11,
 														maxLength: 11,
 														afterLabelTextTpl:'<span style="color:red;font-weight:bold" data-qtip="必填项">*</span>'
 													}, {
+														id:"custAddress",
 														fieldLabel : custAddress,
 														name : 'CUST_ADDRESS',
 														labelAlign : 'right',
 														xtype:'textarea',
 														anchor: '100%'
 													}, {
+														id:"otherContact",
 														fieldLabel : otherContact,
 														name : 'OTHER_CONTACTINFO',
 														labelAlign : 'right',
@@ -233,47 +247,38 @@
 										}]
 							}],
 					buttons : [{
+								id:'addBtn',
 								text : '新增',
-								handler : function() {
-									alert('新增');
-								}
+								handler : addBtnClick
 							},{
-								text : '删除',
-								handler : function() {
-									alert('删除');
-								}
-							},{
+								id:'modifyBtn',
 								text : '修改',
-								handler : function() {
-									alert('修改');
-								}
+								handler : modifyBtnClick
 							},{
+								id:'deleteBtn',
+								text : '删除',
+								handler : deleteBtnClick
+							},{
+								id:'okBtn',
 								text : '确定',
-								handler : function() {
-									alert('确定');
-								}
+								handler : okBtnClick
 							},{
+								id:'cancelBtn',
 								text : '取消',
-								handler : function() {
-									alert('取消');
-								}
+								handler : cancelBtnClick
 							}]
 				}); 
 	      
 		//布局容器
 		var topLayout = Ext.create('Ext.Panel', {
-			header:false,
-			style:'border-style:none',
-			width:'100%',
-			border:0,
-			padding:0,
-		    layout: {
-		        type: 'vbox',
-		        align: 'strech'
-		    },
 		    items: [searchForm,custGrid,custForm],
 		    renderTo: Ext.getBody()
 		});
-		
+		Ext.EventManager.addListener(window, "resize", function() {
+			topLayout.setWidth(Ext.getBody().getWidth());
+			topLayout.doLayout();
+		});
+		//初始只展示"新增"按钮
+		btnVisible([true,false,false,false,false]);
 	});
 })();
