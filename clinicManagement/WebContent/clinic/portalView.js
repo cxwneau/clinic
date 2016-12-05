@@ -70,7 +70,7 @@ Ext.Loader.setPath('Ext.ux', '../ux/');
 		});
 		
 		//构造左端导航面板
-		var menuPanel = Ext.create('Ext.Panel', {
+		var menuPanel = Ext.create('Ext.panel.Panel', {
 			title:"菜单导航",
 			id:"menuPanel",
 			border:0,
@@ -84,7 +84,6 @@ Ext.Loader.setPath('Ext.ux', '../ux/');
 		//主工作区的tab页
 		var tabPanel = Ext.create('Ext.tab.Panel', {
 			id:"mainTabs",
-		    width: '100%',
 		    border:0,
 		    enableTabScroll: true,
 		    items: [{
@@ -102,7 +101,7 @@ Ext.Loader.setPath('Ext.ux', '../ux/');
 		});
 		
 		//整体布局并且开始展示
-		Ext.create('Ext.Viewport', {
+		Ext.create('Ext.container.Viewport', {
 			layout : 'border',
 			border:0,
 			items : [
