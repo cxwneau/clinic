@@ -25,7 +25,8 @@
 <link href="<%=webRoot%>frm/extjs4/plugin/TabScrollerMenu.css" rel="stylesheet" type="text/css" />
 
 <%
-	String op_id = request.getParameter("op_id");
+	//String op_id = request.getParameter("op_id");
+	String op_id = "1";
 %>
 <script type="text/javascript">
 	var op_id = <%=op_id%>;
