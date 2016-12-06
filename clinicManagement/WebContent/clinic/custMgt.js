@@ -9,6 +9,7 @@ function selectionchange( grid, selected, eOpts ){
 		Ext.getCmp("custFieldset").loadRecord(selected[0]);
 		Ext.getCmp("birthSelector").setValue(selected[0].data.BIRTHDAY.substr(0,10));
 		btnVisible([true,true,true,false,false]);
+		Ext.getCmp("basicInfo").setDisabled(true);
 	}else{
 		Ext.getCmp('custFieldset').getForm().reset();
 		btnVisible([true,false,false,false,false]);
