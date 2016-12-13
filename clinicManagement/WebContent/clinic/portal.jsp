@@ -25,11 +25,15 @@
 <link href="<%=webRoot%>frm/extjs4/plugin/TabScrollerMenu.css" rel="stylesheet" type="text/css" />
 
 <%
-	//String op_id = request.getParameter("op_id");
-	String op_id = "1";
+	Long op_id = (Long)session.getAttribute("OPERATOR_ID");
+	String login_name = (String)session.getAttribute("LOGIN_NAME");
 %>
+<style type="text/css"  >  
+       .classLabel{font-size: 12px; color: #157FCC; font-weight: bold;}   
+</style>
 <script type="text/javascript">
 	var op_id = <%=op_id%>;
+	var login_name = '<%=login_name%>';
 </script>
 </head>
 <body>

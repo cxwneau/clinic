@@ -7,7 +7,7 @@ function createModuleMenu(module) {
 	try {
 		retMenus = callRemoteQueryFunction("QueryOpModuleMenu", param);
 	} catch (e) {
-		Ext.MessageBox.alert('Alert', e.Desc);
+		Ext.MessageBox.alert('', e.Desc);
 	}
 	//构造菜单dom
 	var $menu_container = $('<div class="container"></div>');
@@ -52,4 +52,12 @@ function clickMenu(menu) {
 		        html:'<iframe scrolling="auto" frameborder="0" width="100%" height="100%" src="'+g_GlobalInfo.webRoot+values[1]+'"> </iframe>'
 			}).show();
 	}
+}
+
+function doLogout(){
+	Ext.MessageBox.confirm('', '您确定要退出登录吗？', function(btn){
+		if(btn == "yes"){
+			Remote.post(g_GlobalInfo.webRoot+"LoginServlet.do?action=logout",null);
+		}
+	});
 }

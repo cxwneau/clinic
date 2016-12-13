@@ -100,6 +100,31 @@ Ext.Loader.setPath('Ext.ux', '../ux/');
 		    ]
 		});
 		
+		//底部小工具
+		var bottomBar = Ext.create('Ext.toolbar.Toolbar', {
+		    items: [{
+			        xtype: 'label',
+			        forId: 'myFieldId',
+			        cls:'classLabel',
+			        text: '欢迎您！'+login_name,
+			        margin: '0 10 0 10'
+			    },{
+	            	id: 'addBtn',
+	                text: "修改资料",
+	                icon: modifyIcon,
+	                handler: null
+	            }, '-', {
+	                id: 'modifyBtn',
+	                text: "更换密码",
+	                icon: changePasswordIcon,
+	                handler: null
+	            }, '-', {
+	                id: 'deleteBtn',
+	                text: "注销",
+	                icon: logoutIcon,
+	                handler: doLogout
+	            }]
+		});
 		//整体布局并且开始展示
 		Ext.create('Ext.container.Viewport', {
 			layout : 'border',
@@ -139,7 +164,7 @@ Ext.Loader.setPath('Ext.ux', '../ux/');
 					layout : 'fit',
 					margin : '0 2 2 2',
 					bodyStyle: 'border-width:1 1 1 1',
-					html : '<center><p style="padding:10px;color:#556677">piggy版权所有2016</p></center>'
+					items:[bottomBar]
 				}
 			],
 			renderTo: Ext.getBody()
