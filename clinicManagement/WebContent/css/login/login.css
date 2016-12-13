@@ -194,3 +194,9 @@ ul
     border-radius:5px; 
     cursor: pointer;   
 }
+.error_label{
+   position:absolute;
+   width:300px;
+   color:#ff0000;
+   margin-left:55px;
+}
