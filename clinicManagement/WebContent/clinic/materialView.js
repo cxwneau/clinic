@@ -32,7 +32,7 @@
 							}]
 						},{
 							xtype:'button',
-							text: '查询',
+							text: searchLabel,
 							handler: doSearch
 						}
 				]
@@ -180,25 +180,25 @@
 							}],
 					buttons : [{
 								id:'addBtn',
-								text : '新增',
-								handler : addBtnClick
-							},{
-								id:'modifyBtn',
-								text : '修改',
-								handler : modifyBtnClick
-							},{
-								id:'deleteBtn',
-								text : '删除',
-								handler : deleteBtnClick
-							},{
-								id:'okBtn',
-								text : '确定',
-								handler : okBtnClick
-							},{
-								id:'cancelBtn',
-								text : '取消',
-								handler : cancelBtnClick
-							}]
+								text : addLabel,
+									handler : addBtnClick
+								},{
+									id:'modifyBtn',
+									text : modifyLabel,
+									handler : modifyBtnClick
+								},{
+									id:'deleteBtn',
+									text : deleteLabel,
+									handler : deleteBtnClick
+								},{
+									id:'okBtn',
+									text : okLabel,
+									handler : okBtnClick
+								},{
+									id:'cancelBtn',
+									text : cancelLabel,
+									handler : cancelBtnClick
+								}]
 				}); 
 	      
 		//布局容器

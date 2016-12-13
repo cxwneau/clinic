@@ -46,7 +46,7 @@
 				try {
 					ret = callRemoteQueryFunction("QueryCustomer", param);
 				} catch (e) {
-					Ext.MessageBox.alert('Alert', e.Desc);
+					Ext.MessageBox.ERROR('错误', e.Desc);
 				}
 		        store.add(ret);
 			    Ext.getCmp("custGrid").getView().refresh();

@@ -39,7 +39,7 @@
 							}]
 						},{
 							xtype:'button',
-							text: '查询',
+							text: searchLabel,
 							handler: doSearch
 						}
 				]
@@ -226,8 +226,10 @@
 														anchor: '30%',
 														allowBlank: false,
 														blankText:"客户手机号不可以为空!",
-														minLength: 11,
-														maxLength: 11,
+														validateOnBlur : true,
+														validateOnChange : false,
+														regex: /^[1]\d{10}$/,
+														regexText:"您输入的不是正确的手机号",
 														afterLabelTextTpl:'<span style="color:red;font-weight:bold" data-qtip="必填项">*</span>'
 													}, {
 														id:"custAddress",
@@ -247,26 +249,26 @@
 										}]
 							}],
 					buttons : [{
-								id:'addBtn',
-								text : '新增',
-								handler : addBtnClick
-							},{
-								id:'modifyBtn',
-								text : '修改',
-								handler : modifyBtnClick
-							},{
-								id:'deleteBtn',
-								text : '删除',
-								handler : deleteBtnClick
-							},{
-								id:'okBtn',
-								text : '确定',
-								handler : okBtnClick
-							},{
-								id:'cancelBtn',
-								text : '取消',
-								handler : cancelBtnClick
-							}]
+									id:'addBtn',
+									text : addLabel,
+									handler : addBtnClick
+								},{
+									id:'modifyBtn',
+									text : modifyLabel,
+									handler : modifyBtnClick
+								},{
+									id:'deleteBtn',
+									text : deleteLabel,
+									handler : deleteBtnClick
+								},{
+									id:'okBtn',
+									text : okLabel,
+									handler : okBtnClick
+								},{
+									id:'cancelBtn',
+									text : cancelLabel,
+									handler : cancelBtnClick
+								}]
 				}); 
 	      
 		//布局容器

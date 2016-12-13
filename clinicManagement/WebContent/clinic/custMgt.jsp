@@ -10,14 +10,14 @@
 <%@include file="/frm/inc/widget.inc"%>
 
 <!-- 视情况引入jQuery -->
-<script type="text/javascript" src="<%=webRoot%>frm/otherWidget/jquery.js"></script>
+
 
 <!-- 本页面使用的js文件，推荐如下开发方式：其中一个js用于组织界面，另一个js负责业务逻辑 -->
 <script type="text/javascript" src="custMgt.js"></script>
 <script type="text/javascript" src="custMgtView.js"></script>
 
 <!-- 本页面使用extjs插件 -->
-<script type="text/javascript" src="<%=webRoot%>frm/extjs4/plugin/PagingMemoryProxy.js"></script>
+
 
 <!-- 本页面使用的css文件 -->
 

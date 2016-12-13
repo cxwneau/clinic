@@ -45,7 +45,7 @@ function deleteBtnClick(){
 	//先检查是否有实例数据，有的话就不让删除
 	
 	//执行删除
-	Ext.MessageBox.confirm('', '你确定要删除这个物料吗？', function(btn){
+	Ext.MessageBox.confirm('', '你确定要删除这个物品吗？', function(btn){
 		if(btn == "yes"){
 			var inParam = {};
 			inParam.MATERIAL_ID = Ext.getCmp("materialId").value;
