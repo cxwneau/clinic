@@ -1,64 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   
-  <welcome-file-list>
-  	<welcome-file>login.jsp</welcome-file>
-  </welcome-file-list>
+	<welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
   
-  <context-param>
-    <param-name>DATABASE</param-name>
-    <param-value>MYSQL</param-value>
-  </context-param>
-  <context-param>
-    <param-name>DEV_MODE</param-name>
-    <param-value>true</param-value>
-  </context-param>
-  <context-param>
-    <param-name>SPRING_LOCATION</param-name>
-    <param-value>spring.xml</param-value>
-  </context-param>
+	<context-param>
+		<param-name>DATABASE</param-name>
+		<param-value>MYSQL</param-value>
+	</context-param>
+	<context-param>
+		<param-name>DEV_MODE</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	<context-param>
+		<param-name>SPRING_LOCATION</param-name>
+		<param-value>spring.xml</param-value>
+	</context-param>
   
-  <listener>
-    <listener-class>org.piggy.webcore.listener.SpringContextInitListener</listener-class>
-  </listener>
+	<listener>
+		<listener-class>org.piggy.webcore.listener.SpringContextInitListener</listener-class>
+	</listener>
   
-  <filter>
-    <display-name>LocaleFilter</display-name>
-    <filter-name>LocaleFilter</filter-name>
-    <filter-class>org.piggy.webcore.filter.LocaleFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>LocaleFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
+	<filter>
+		<display-name>LocaleFilter</display-name>
+		<filter-name>LocaleFilter</filter-name>
+		<filter-class>org.piggy.webcore.filter.LocaleFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>LocaleFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<display-name>SessionFilter</display-name>
+		<filter-name>SessionFilter</filter-name>
+		<filter-class>org.piggy.clinic.web.filter.SessionFilter</filter-class>
+		<init-param>
+			<param-name>ExcludeFile</param-name>
+			<param-value>/login.jsp,/error.jsp,/clinic/welcome.jsp</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>SessionFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+		<url-pattern>/callservice.do</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<description></description>
+		<display-name>LoginServlet</display-name>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>org.piggy.clinic.web.servlet.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/LoginServlet.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CallService</servlet-name>
+		<servlet-class>org.piggy.webcore.handler.ServiceFacadeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CallService</servlet-name>
+		<url-pattern>/callservice.do</url-pattern>
+	</servlet-mapping>
   
-  <servlet>
-    <servlet-name>CallService</servlet-name>
-    <servlet-class>org.piggy.webcore.handler.ServiceFacadeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>CallService</servlet-name>
-    <url-pattern>/callservice.do</url-pattern>
-  </servlet-mapping>
+	<servlet>
+		<servlet-name>UploadServlet</servlet-name>
+		<servlet-class>org.piggy.webcore.handler.UploadFacadeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>UploadServlet</servlet-name>
+		<url-pattern>/upload.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DownloadServlet</servlet-name>
+		<servlet-class>org.piggy.webcore.handler.ServiceFacadeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DownloadServlet</servlet-name>
+		<url-pattern>/download.do</url-pattern>
+	</servlet-mapping>
   
-  <servlet>
-    <servlet-name>UploadServlet</servlet-name>
-    <servlet-class>org.piggy.webcore.handler.UploadFacadeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UploadServlet</servlet-name>
-    <url-pattern>/upload.do</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <servlet-name>DownloadServlet</servlet-name>
-    <servlet-class>org.piggy.webcore.handler.ServiceFacadeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>DownloadServlet</servlet-name>
-    <url-pattern>/download.do</url-pattern>
-  </servlet-mapping>
-  
-  <session-config>
-    <session-timeout>30</session-timeout>
-  </session-config>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
 </web-app>
