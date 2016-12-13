@@ -233,7 +233,20 @@ _packager.QueryResultToObject = function(result){
 };
 
 var Remote = {
-	
+	post : function(URL, PARAMS) {        
+	    var temp = document.createElement("form");        
+	    temp.action = URL;        
+	    temp.method = "post";        
+	    temp.style.display = "none";        
+	    for (var x in PARAMS) {        
+	        var opt = document.createElement("textarea");        
+	        opt.name = x;        
+	        opt.value = PARAMS[x];        
+	        temp.appendChild(opt);        
+	    }        
+	    document.body.appendChild(temp);        
+	    temp.submit();        
+	},        
 	sendXml : function (url,strXml){
 		var xmlHttp = PiggyOrg.env.createRequest(); 
 		xmlHttp.open("POST",url,false);	

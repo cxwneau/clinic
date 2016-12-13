@@ -24,5 +24,17 @@
 <script type="text/javascript">
 	var g_GlobalInfo = {};
 	g_GlobalInfo.webRoot = "<%=webRoot%>";
+	var addLabel = '<%=getString("COMMON.ADD")%>';
+	var deleteLabel = '<%=getString("COMMON.DELETE")%>';
+	var modifyLabel = '<%=getString("COMMON.MODIFY")%>';
+	var okLabel = '<%=getString("COMMON.OK")%>';
+	var cancelLabel = '<%=getString("COMMON.CANCEL")%>';
+	var searchLabel = '<%=getString("COMMON.SEARCH")%>';
+	var addIcon = g_GlobalInfo.webRoot+ 'images/portal/add.gif';
+	var modifyIcon = g_GlobalInfo.webRoot+ 'images/portal/edit.png';
+	var deleteIcon = g_GlobalInfo.webRoot+ 'images/portal/delete.gif';
+	var configIcon = g_GlobalInfo.webRoot+ 'images/portal/config.png';
+	var logoutIcon = g_GlobalInfo.webRoot+ 'images/portal/logout.png';
+	var changePasswordIcon = g_GlobalInfo.webRoot+ 'images/portal/changePassword.png';
 </script>
 
