@@ -6,7 +6,7 @@ import org.piggy.core.exceptions.BaseAppException;
 import org.piggy.core.model.DynamicDict;
 import org.piggy.core.services.BaseService;
 import org.piggy.core.utils.BOHelper;
-import org.piggy.core.utils.SpringUtil;
+import org.piggy.core.utils.SpringUtils;
 import org.springframework.stereotype.Controller;
 
 @Controller("MaterialService")
@@ -32,20 +32,20 @@ public class MaterialService implements BaseService {
 	}
 
 	private void deleteMaterial(DynamicDict dict) throws BaseAppException {
-		MaterialManager manager = SpringUtil.getSpringBeanFactory().getBean(MaterialManager.class);
+		MaterialManager manager = SpringUtils.getSpringBeanFactory().getBean(MaterialManager.class);
 		BoMaterial material = (BoMaterial)BOHelper.boToDto(dict, BoMaterial.class);
 		manager.delete(material);
 		
 	}
 
 	private void modifyMaterial(DynamicDict dict) throws BaseAppException {
-		MaterialManager manager = SpringUtil.getSpringBeanFactory().getBean(MaterialManager.class);
+		MaterialManager manager = SpringUtils.getSpringBeanFactory().getBean(MaterialManager.class);
 		BoMaterial material = (BoMaterial)BOHelper.boToDto(dict, BoMaterial.class);
 		manager.update(material);
 	}
 
 	private void addMaterial(DynamicDict dict) throws BaseAppException {
-		MaterialManager manager = SpringUtil.getSpringBeanFactory().getBean(MaterialManager.class);
+		MaterialManager manager = SpringUtils.getSpringBeanFactory().getBean(MaterialManager.class);
 		BoMaterial material = (BoMaterial)BOHelper.boToDto(dict, BoMaterial.class);
 		manager.add(material);
 	}
