@@ -23,7 +23,6 @@ import org.slf4j.LoggerFactory;
 public class SessionFilter extends HttpServlet implements Filter {
 	private static Logger Log = LoggerFactory.getLogger(ServiceLoggingAspect.class);
 	private static final long serialVersionUID = -8214762754470838265L;
-	private static final String CONTENT_TYPE = "text/xml; charset=UTF-8";
 	private FilterConfig filterConfig;
 
 	/**
@@ -39,6 +38,7 @@ public class SessionFilter extends HttpServlet implements Filter {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public void doFilter(ServletRequest srequest, ServletResponse sresponse, FilterChain filterChain)
 			throws IOException {
 		HttpServletRequest request = (HttpServletRequest) srequest;
@@ -77,9 +77,9 @@ public class SessionFilter extends HttpServlet implements Filter {
 				return;
 			}
 			// 如果登录了并且不是callservice.do，再看有没有菜单权限，没有权限直接转到错误页面
-			List<Map<String,Object>> menuList = (List<Map<String, Object>>) request.getSession().getAttribute("MENU_LIST");
-			for (Iterator iterator = menuList.iterator(); iterator.hasNext();) {
-				Map<String, Object> map = (Map<String, Object>) iterator.next();
+			List<Object> menuList = (List<Object>) request.getSession().getAttribute("MENU_LIST");
+			for (Object  menu : menuList) {
+				Map<String, Object> map = (Map<String, Object>) menu;
 				if(requestStr.contains((String)map.get("URL"))){
 					filterChain.doFilter(request, response);
 					return;

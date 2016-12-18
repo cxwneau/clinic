@@ -93,7 +93,7 @@ public class LoginServlet extends HttpServlet {
 			dict.set("OPERATOR_ID", userDict.getLong("OPERATOR_ID"));
 			dict.setServiceName("QryOperatorMenus");
 			ServiceFlow.callService(dict);
-			List<Map<String,Object>> menuList = dict.getList(Common.Z_D_R);
+			List<Object> menuList = dict.getList(Common.Z_D_R);
 			session.setAttribute("MENU_LIST", menuList);
 			// 记录登录信息，session里也放一份
 			String loginIp = request.getRemoteAddr();
