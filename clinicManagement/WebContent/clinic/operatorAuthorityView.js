@@ -1,5 +1,3 @@
-Ext.Loader.setConfig({enabled: true});
-Ext.Loader.setPath('Ext.ux', '../ux/');
 (function(){
 	Ext.onReady(function(){
 		//这一句是启用所有的悬浮提示
