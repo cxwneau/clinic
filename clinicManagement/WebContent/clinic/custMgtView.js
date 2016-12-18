@@ -138,32 +138,37 @@
 								frame:false,
 								border : 0,
 								items : [
-//									{
-//											id:'photo',
-//											width:180,
-//											layout : 'form',
-//											xtype : 'fieldset',
-//											disabled:true,
-//											height:284,
-//											align : 'right',
-//											title : '客户照片 ',
-//											items : [	{
-//												    		xtype:'image',
-//												    		border:0,
-//												    		src:g_GlobalInfo.webRoot+'images/custPhoto/chui2.png'
-//											    		}, {
-//															buttonText: '选择照片',
-//															xtype: 'filefield',
-//															name : 'ICON',
-//															hideLabel: true
-//														},{
-//															xtype:'button',
-//															text: '上传',
-//															handler: function(){
-//															}
-//														}
-//											    	]
-//										}, 
+									{
+											id:'photo',
+											width:180,
+											layout : 'form',
+											xtype : 'fieldset',
+											disabled:true,
+											height:284,
+											align : 'right',
+											title : '客户照片 ',
+											items : [	{
+															id:"custIcon",
+															fieldLabel : 'ICON',
+															name : 'ICON',
+															hidden : true
+														},{
+												    		xtype:'image',
+												    		id:'custPhoto',
+												    		height:206,
+												    		width:159,
+												    		border:0,
+												    		src:g_GlobalInfo.webRoot+'images/portal/defaultPhoto.png'
+											    		}, {
+															xtype:'button',
+															text: '更换照片',
+															width:'100%',
+															handler: function(){
+																roleWin.show();
+															}
+														}
+											    	]
+										}, 
 											{
 											id:'basicInfo',
 											width:'100%',
@@ -271,6 +276,47 @@
 								}]
 				}); 
 	      
+		var uploadPanel = Ext.create('Ext.ux.uploadPanel.UploadPanel',{  
+		    //title : '上传文件',  
+			width : 700,
+		    addFileBtnText : '选择文件...',  
+		    uploadBtnText : '上传',  
+		    removeBtnText : '移除所有',  
+		    cancelBtnText : '取消上传', 
+		    tipLabelText : '最多1张照片，最大1M，jpg、png、gif格式',
+		    file_size_limit : 1,//MB 
+			file_types : "*.jpg;*.png;*.gif",
+			file_upload_limit : 0,
+			file_queue_limit : 1,
+		    upload_url : g_GlobalInfo.webRoot +'upload.do?SERVICE_NAME=CUST_PHOTO',
+			successCallBack : function (file, serverData, responseReceived){
+									if(Ext.JSON.decode(serverData).success){
+										Ext.getCmp("custPhoto").src = g_GlobalInfo.webRoot+Ext.JSON.decode(serverData).returnPath;
+										Ext.getCmp("custPhoto").getEl().dom.src = g_GlobalInfo.webRoot+Ext.JSON.decode(serverData).returnPath;
+										custForm.doLayout();
+										this.onRemove();
+										roleWin.hide();
+										Ext.getCmp("custIcon").value = Ext.JSON.decode(serverData).returnPath;
+									}
+								}
+		});  
+		//弹出新增窗口
+		var roleWin = Ext.create('Ext.Window', {
+			title:"更换照片",
+			id:'roleWin',
+	        width : 700,
+			height : 300,
+	        closeAction:'hide',
+	        modal:true,
+	        items: [new Ext.form.Panel({
+					id:"winFieldset",
+					border:0,
+					layout: 'anchor',
+					defaultType: 'textfield',
+					items : [uploadPanel]
+				})]
+	    });
+	    
 		//布局容器
 		var topLayout = Ext.create('Ext.Panel', {
 		    items: [searchForm,custGrid,custForm],

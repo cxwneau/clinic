@@ -8,12 +8,18 @@ function selectionchange( grid, selected, eOpts ){
 	if(selected && selected.length>0){
 		Ext.getCmp("custFieldset").loadRecord(selected[0]);
 		Ext.getCmp("birthSelector").setValue(selected[0].data.BIRTHDAY.substr(0,10));
+		if(selected[0].data.ICON){
+			Ext.getCmp("custPhoto").getEl().dom.src = g_GlobalInfo.webRoot+selected[0].data.ICON;
+		}else{
+			Ext.getCmp("custPhoto").getEl().dom.src = g_GlobalInfo.webRoot+'images/portal/defaultPhoto.png';
+		}
 		btnVisible([true,true,true,false,false]);
 		Ext.getCmp("basicInfo").setDisabled(true);
 	}else{
 		Ext.getCmp('custFieldset').getForm().reset();
+		Ext.getCmp("custPhoto").getEl().dom.src = g_GlobalInfo.webRoot+'images/portal/defaultPhoto.png';
 		btnVisible([true,false,false,false,false]);
-		//Ext.getCmp("photo").setDisabled(true);
+		Ext.getCmp("photo").setDisabled(true);
 		Ext.getCmp("basicInfo").setDisabled(true);
 	}
 }
@@ -35,13 +41,13 @@ function itemdblclick( grid, record, item, index, e, eOpts ){
 function addBtnClick(){
 	Ext.getCmp('custFieldset').getForm().reset();
 	btnVisible([false,false,false,true,true]);
-	//Ext.getCmp("photo").setDisabled(false);
+	Ext.getCmp("photo").setDisabled(false);
 	Ext.getCmp("basicInfo").setDisabled(false);
 	operMode = "add";
 }
 function modifyBtnClick(){
 	btnVisible([false,false,false,true,true]);
-	//Ext.getCmp("photo").setDisabled(false);
+	Ext.getCmp("photo").setDisabled(false);
 	Ext.getCmp("basicInfo").setDisabled(false);
 	operMode = "modify";
 }
@@ -75,6 +81,7 @@ function okBtnClick() {
 	inParam.PHONENUMBER = Ext.getCmp("phoneNumber").value;
 	inParam.CUST_ADDRESS = Ext.getCmp("custAddress").value;
 	inParam.OTHER_CONTACTINFO = Ext.getCmp("otherContact").value;
+	inParam.ICON = Ext.getCmp("custIcon").value;
 	try {
 		if(operMode=="add"){
 			callRemoteFunction("ADD_CUSTOMER", inParam);
@@ -108,13 +115,19 @@ function cancelBtnClick(){
 	 if(selectedData && selectedData.length>0){
 	 	Ext.getCmp("custFieldset").loadRecord(selectedData[0]);
 		Ext.getCmp("birthSelector").setValue(selectedData[0].data.BIRTHDAY.substr(0,10));
+		if(selectedData[0].data.ICON){
+			Ext.getCmp("custPhoto").getEl().dom.src = g_GlobalInfo.webRoot+selectedData[0].data.ICON;
+		}else{
+			Ext.getCmp("custPhoto").getEl().dom.src = g_GlobalInfo.webRoot+'images/portal/defaultPhoto.png';
+		}
 		btnVisible([true,true,true,false,false]);
-		//Ext.getCmp("photo").setDisabled(true);
+		Ext.getCmp("photo").setDisabled(true);
 		Ext.getCmp("basicInfo").setDisabled(true);
 	 }else{
 	 	Ext.getCmp('custFieldset').getForm().reset();
+	 	Ext.getCmp("custPhoto").getEl().dom.src = g_GlobalInfo.webRoot+'images/portal/defaultPhoto.png';
 	 	btnVisible([true,false,false,false,false]);
-	 	//Ext.getCmp("photo").setDisabled(true);
+	 	Ext.getCmp("photo").setDisabled(true);
 		Ext.getCmp("basicInfo").setDisabled(true);
 	 }
 }

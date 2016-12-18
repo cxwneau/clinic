@@ -17,9 +17,11 @@
 <script type="text/javascript" src="custMgtView.js"></script>
 
 <!-- 本页面使用extjs插件 -->
-
+<script type="text/javascript" src="<%=webRoot%>frm/extjs4/plugin/UploadPanel.js"></script>
+<script type="text/javascript" src="<%=webRoot%>frm/otherWidget/swfupload.js"></script>
 
 <!-- 本页面使用的css文件 -->
+<link href="<%=webRoot%>frm/extjs4/plugin/UploadPanel.css" rel="stylesheet" type="text/css" />
 
 </head>
 <script type="text/javascript">
