@@ -32,20 +32,20 @@ public class CustomerService implements BaseService {
 	}
 
 	private void deleteCustomer(DynamicDict dict) throws BaseAppException {
-		CustomerManager manager = SpringUtils.getSpringBeanFactory().getBean(CustomerManager.class);
+		CustomerManager manager = SpringUtils.getBean(CustomerManager.class);
 		BoCustomer customer = (BoCustomer)BOHelper.boToDto(dict, BoCustomer.class);
 		manager.deleteCustomer(customer);
 		
 	}
 
 	private void modifyCustomer(DynamicDict dict) throws BaseAppException {
-		CustomerManager manager = SpringUtils.getSpringBeanFactory().getBean(CustomerManager.class);
+		CustomerManager manager = SpringUtils.getBean(CustomerManager.class);
 		BoCustomer customer = (BoCustomer)BOHelper.boToDto(dict, BoCustomer.class);
 		manager.updateCustomer(customer);
 	}
 
 	private void addCustomer(DynamicDict dict) throws BaseAppException {
-		CustomerManager manager = SpringUtils.getSpringBeanFactory().getBean(CustomerManager.class);
+		CustomerManager manager = SpringUtils.getBean(CustomerManager.class);
 		BoCustomer customer = (BoCustomer)BOHelper.boToDto(dict, BoCustomer.class);
 		manager.addCustomer(customer);
 	}

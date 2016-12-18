@@ -29,10 +29,10 @@ public class RoleMenuRelService implements BaseService {
 	}
 
 	private void modifyRoleMenuRel(DynamicDict dict) throws BaseAppException {
-		//ÏÈÉ¾³ıÖ®Ç°ËùÓĞµÄ
-		RoleMenuRelManager manager = SpringUtils.getSpringBeanFactory().getBean(RoleMenuRelManager.class);
+		//å…ˆåˆ æ‰æ‰€æœ‰çš„
+		RoleMenuRelManager manager = SpringUtils.getBean(RoleMenuRelManager.class);
 		manager.deleteRoleMenuRelByRole(dict.getLong("ROLE_ID"));
-		//ÔÙ²åÈëĞÂµÄ
+		//å†æ’å…¥æ–°çš„
 		List<Object> list = BOHelper.boToListDto(dict, "RELS", BoRoleMenuRel.class);
 		List<BoRoleMenuRel> newList = new ArrayList<BoRoleMenuRel>();
 		for(Object obj : list){

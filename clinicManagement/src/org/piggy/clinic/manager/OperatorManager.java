@@ -14,24 +14,24 @@ import org.springframework.stereotype.Service;
 public class OperatorManager {
 	
 	public void addOperator(BoOperator operator) throws BaseAppException {
-		OperatorDao dao = SpringUtils.getSpringBeanFactory().getBean(OperatorDao.class);
+		OperatorDao dao = SpringUtils.getBean(OperatorDao.class);
 		operator.setStatusTime(new Date());
 		dao.addOperator(operator);
 	}
 	
 	public void updateOperator(BoOperator operator) throws BaseAppException {
-		OperatorDao dao = SpringUtils.getSpringBeanFactory().getBean(OperatorDao.class);
+		OperatorDao dao = SpringUtils.getBean(OperatorDao.class);
 		operator.setStatusTime(new Date());
 		dao.updateOperator(operator);
 	}
 	
 	public void deleteOperator(BoOperator operator) throws BaseAppException {
-		OperatorDao dao = SpringUtils.getSpringBeanFactory().getBean(OperatorDao.class);
+		OperatorDao dao = SpringUtils.getBean(OperatorDao.class);
 		dao.deleteOperator(operator);
 	}
 	
 	public BoOperator queryOperator (BoOperator operator) throws BaseAppException {
-		OperatorDao dao = SpringUtils.getSpringBeanFactory().getBean(OperatorDao.class);
+		OperatorDao dao = SpringUtils.getBean(OperatorDao.class);
 		List<BO> operatorList = dao.queryOperator(operator);
 		if (operatorList.size() > 0) {
 			return (BoOperator)operatorList.get(0);

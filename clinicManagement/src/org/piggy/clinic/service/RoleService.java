@@ -32,20 +32,20 @@ public class RoleService implements BaseService {
 	}
 
 	private void deleteRole(DynamicDict dict) throws BaseAppException {
-		RoleManager manager = SpringUtils.getSpringBeanFactory().getBean(RoleManager.class);
+		RoleManager manager = SpringUtils.getBean(RoleManager.class);
 		BoRole role = (BoRole)BOHelper.boToDto(dict, BoRole.class);
 		manager.deleteRole(role);
 		
 	}
 
 	private void modifyRole(DynamicDict dict) throws BaseAppException {
-		RoleManager manager = SpringUtils.getSpringBeanFactory().getBean(RoleManager.class);
+		RoleManager manager = SpringUtils.getBean(RoleManager.class);
 		BoRole role = (BoRole)BOHelper.boToDto(dict, BoRole.class);
 		manager.updateRole(role);
 	}
 
 	private void addRole(DynamicDict dict) throws BaseAppException {
-		RoleManager manager = SpringUtils.getSpringBeanFactory().getBean(RoleManager.class);
+		RoleManager manager = SpringUtils.getBean(RoleManager.class);
 		BoRole role = (BoRole)BOHelper.boToDto(dict, BoRole.class);
 		manager.addRole(role);
 	}

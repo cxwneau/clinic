@@ -32,20 +32,20 @@ public class MaterialService implements BaseService {
 	}
 
 	private void deleteMaterial(DynamicDict dict) throws BaseAppException {
-		MaterialManager manager = SpringUtils.getSpringBeanFactory().getBean(MaterialManager.class);
+		MaterialManager manager = SpringUtils.getBean(MaterialManager.class);
 		BoMaterial material = (BoMaterial)BOHelper.boToDto(dict, BoMaterial.class);
 		manager.delete(material);
 		
 	}
 
 	private void modifyMaterial(DynamicDict dict) throws BaseAppException {
-		MaterialManager manager = SpringUtils.getSpringBeanFactory().getBean(MaterialManager.class);
+		MaterialManager manager = SpringUtils.getBean(MaterialManager.class);
 		BoMaterial material = (BoMaterial)BOHelper.boToDto(dict, BoMaterial.class);
 		manager.update(material);
 	}
 
 	private void addMaterial(DynamicDict dict) throws BaseAppException {
-		MaterialManager manager = SpringUtils.getSpringBeanFactory().getBean(MaterialManager.class);
+		MaterialManager manager = SpringUtils.getBean(MaterialManager.class);
 		BoMaterial material = (BoMaterial)BOHelper.boToDto(dict, BoMaterial.class);
 		manager.add(material);
 	}

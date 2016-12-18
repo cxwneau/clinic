@@ -14,24 +14,24 @@ import org.springframework.stereotype.Service;
 public class CustomerManager {
 	
 	public void addCustomer(BoCustomer customer) throws BaseAppException {
-		CustomerDao dao = SpringUtils.getSpringBeanFactory().getBean(CustomerDao.class);
+		CustomerDao dao = SpringUtils.getBean(CustomerDao.class);
 		customer.setOperTime(new Date());
 		dao.addCustomer(customer);
 	}
 	
 	public void updateCustomer(BoCustomer customer) throws BaseAppException {
-		CustomerDao dao = SpringUtils.getSpringBeanFactory().getBean(CustomerDao.class);
+		CustomerDao dao = SpringUtils.getBean(CustomerDao.class);
 		customer.setOperTime(new Date());
 		dao.updateCustomer(customer);
 	}
 	
 	public void deleteCustomer(BoCustomer customer) throws BaseAppException {
-		CustomerDao dao = SpringUtils.getSpringBeanFactory().getBean(CustomerDao.class);
+		CustomerDao dao = SpringUtils.getBean(CustomerDao.class);
 		dao.deleteCustomer(customer);
 	}
 	
 	public BoCustomer queryCustomer (BoCustomer customer) throws BaseAppException {
-		CustomerDao dao = SpringUtils.getSpringBeanFactory().getBean(CustomerDao.class);
+		CustomerDao dao = SpringUtils.getBean(CustomerDao.class);
 		List<BO> customerList = dao.queryCustomer(customer);
 		if (customerList.size() > 0) {
 			return (BoCustomer)customerList.get(0);

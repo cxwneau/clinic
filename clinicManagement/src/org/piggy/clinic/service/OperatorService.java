@@ -34,7 +34,7 @@ public class OperatorService implements BaseService {
 		return dict;
 	}
 	private void validateLogin(DynamicDict dict) throws BaseAppException {
-		OperatorManager manager = SpringUtils.getSpringBeanFactory().getBean(OperatorManager.class);
+		OperatorManager manager = SpringUtils.getBean(OperatorManager.class);
 		BoOperator operator = (BoOperator)BOHelper.boToDto(dict, BoOperator.class);
 		BoOperator ret = manager.queryOperator(operator);
 		if(ret != null){
@@ -46,20 +46,20 @@ public class OperatorService implements BaseService {
 		}
 	}
 	private void deleteOperator(DynamicDict dict) throws BaseAppException {
-		OperatorManager manager = SpringUtils.getSpringBeanFactory().getBean(OperatorManager.class);
+		OperatorManager manager = SpringUtils.getBean(OperatorManager.class);
 		BoOperator operator = (BoOperator)BOHelper.boToDto(dict, BoOperator.class);
 		manager.deleteOperator(operator);
 		
 	}
 
 	private void modifyOperator(DynamicDict dict) throws BaseAppException {
-		OperatorManager manager = SpringUtils.getSpringBeanFactory().getBean(OperatorManager.class);
+		OperatorManager manager = SpringUtils.getBean(OperatorManager.class);
 		BoOperator operator = (BoOperator)BOHelper.boToDto(dict, BoOperator.class);
 		manager.updateOperator(operator);
 	}
 
 	private void addOperator(DynamicDict dict) throws BaseAppException {
-		OperatorManager manager = SpringUtils.getSpringBeanFactory().getBean(OperatorManager.class);
+		OperatorManager manager = SpringUtils.getBean(OperatorManager.class);
 		BoOperator operator = (BoOperator)BOHelper.boToDto(dict, BoOperator.class);
 		manager.addOperator(operator);
 	}

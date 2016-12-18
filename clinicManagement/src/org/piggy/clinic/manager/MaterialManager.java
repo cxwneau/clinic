@@ -14,24 +14,24 @@ import org.springframework.stereotype.Service;
 public class MaterialManager {
 	
 	public void add(BoMaterial material) throws BaseAppException {
-		MaterialDao dao = SpringUtils.getSpringBeanFactory().getBean(MaterialDao.class);
+		MaterialDao dao = SpringUtils.getBean(MaterialDao.class);
 		material.setOperTime(new Date());
 		dao.add(material);
 	}
 	
 	public void update(BoMaterial material) throws BaseAppException {
-		MaterialDao dao = SpringUtils.getSpringBeanFactory().getBean(MaterialDao.class);
+		MaterialDao dao = SpringUtils.getBean(MaterialDao.class);
 		material.setOperTime(new Date());
 		dao.update(material);
 	}
 	
 	public void delete(BoMaterial material) throws BaseAppException {
-		MaterialDao dao = SpringUtils.getSpringBeanFactory().getBean(MaterialDao.class);
+		MaterialDao dao = SpringUtils.getBean(MaterialDao.class);
 		dao.delete(material);
 	}
 	
 	public BoMaterial query(BoMaterial material) throws BaseAppException {
-		MaterialDao dao = SpringUtils.getSpringBeanFactory().getBean(MaterialDao.class);
+		MaterialDao dao = SpringUtils.getBean(MaterialDao.class);
 		List<BO> materialList = dao.query(material);
 		if (materialList.size() > 0) {
 			return (BoMaterial)materialList.get(0);

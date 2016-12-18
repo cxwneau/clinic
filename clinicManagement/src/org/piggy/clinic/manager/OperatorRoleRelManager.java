@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 public class OperatorRoleRelManager {
 	
 	public void addOperatorRoleRelBatch(List<BoOperatorRoleRel> list) throws BaseAppException {
-		OperatorRoleRelDao dao = SpringUtils.getSpringBeanFactory().getBean(OperatorRoleRelDao.class);
+		OperatorRoleRelDao dao = SpringUtils.getBean(OperatorRoleRelDao.class);
 		dao.addOperatorRoleRelBatch(list);
 	}
 	
 	
 	public void deleteOperatorRoleRelByRole(long opeartorId) throws BaseAppException {
-		OperatorRoleRelDao dao = SpringUtils.getSpringBeanFactory().getBean(OperatorRoleRelDao.class);
+		OperatorRoleRelDao dao = SpringUtils.getBean(OperatorRoleRelDao.class);
 		dao.deleteOperatorRoleRelByRole(opeartorId);
 	}
 	

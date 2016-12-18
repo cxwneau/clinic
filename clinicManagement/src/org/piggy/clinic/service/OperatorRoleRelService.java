@@ -29,10 +29,10 @@ public class OperatorRoleRelService implements BaseService {
 	}
 
 	private void modifyOperatorRoleRel(DynamicDict dict) throws BaseAppException {
-		//ÏÈÉ¾³ıÖ®Ç°ËùÓĞµÄ
-		OperatorRoleRelManager manager = SpringUtils.getSpringBeanFactory().getBean(OperatorRoleRelManager.class);
+		//å…ˆåˆ é™¤æ‰€æœ‰çš„
+		OperatorRoleRelManager manager = SpringUtils.getBean(OperatorRoleRelManager.class);
 		manager.deleteOperatorRoleRelByRole(dict.getLong("OPERATOR_ID"));
-		//ÔÙ²åÈëĞÂµÄ
+		//å†æ’å…¥æ–°çš„
 		List<Object> list = BOHelper.boToListDto(dict, "RELS", BoOperatorRoleRel.class);
 		List<BoOperatorRoleRel> newList = new ArrayList<BoOperatorRoleRel>();
 		for(Object obj : list){

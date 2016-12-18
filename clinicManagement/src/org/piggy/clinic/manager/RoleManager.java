@@ -13,22 +13,22 @@ import org.springframework.stereotype.Service;
 public class RoleManager {
 	
 	public void addRole(BoRole role) throws BaseAppException {
-		RoleDao dao = SpringUtils.getSpringBeanFactory().getBean(RoleDao.class);
+		RoleDao dao = SpringUtils.getBean(RoleDao.class);
 		dao.addRole(role);
 	}
 	
 	public void updateRole(BoRole role) throws BaseAppException {
-		RoleDao dao = SpringUtils.getSpringBeanFactory().getBean(RoleDao.class);
+		RoleDao dao = SpringUtils.getBean(RoleDao.class);
 		dao.updateRole(role);
 	}
 	
 	public void deleteRole(BoRole role) throws BaseAppException {
-		RoleDao dao = SpringUtils.getSpringBeanFactory().getBean(RoleDao.class);
+		RoleDao dao = SpringUtils.getBean(RoleDao.class);
 		dao.deleteRole(role);
 	}
 	
 	public BoRole queryRole (BoRole role) throws BaseAppException {
-		RoleDao dao = SpringUtils.getSpringBeanFactory().getBean(RoleDao.class);
+		RoleDao dao = SpringUtils.getBean(RoleDao.class);
 		List<BO> roleList = dao.queryRole(role);
 		if (roleList.size() > 0) {
 			return (BoRole)roleList.get(0);

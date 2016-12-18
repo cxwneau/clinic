@@ -12,13 +12,13 @@ import org.springframework.stereotype.Service;
 public class RoleMenuRelManager {
 	
 	public void addRoleMenuRelBatch(List<BoRoleMenuRel> list) throws BaseAppException {
-		RoleMenuRelDao dao = SpringUtils.getSpringBeanFactory().getBean(RoleMenuRelDao.class);
+		RoleMenuRelDao dao = SpringUtils.getBean(RoleMenuRelDao.class);
 		dao.addRoleMenuRelBatch(list);
 	}
 	
 	
 	public void deleteRoleMenuRelByRole(long roleId) throws BaseAppException {
-		RoleMenuRelDao dao = SpringUtils.getSpringBeanFactory().getBean(RoleMenuRelDao.class);
+		RoleMenuRelDao dao = SpringUtils.getBean(RoleMenuRelDao.class);
 		dao.deleteRoleMenuRelByRole(roleId);
 	}
 	
