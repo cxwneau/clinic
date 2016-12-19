@@ -2,9 +2,9 @@ package org.piggy.clinic.web.servlet;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +54,8 @@ public class LoginServlet extends HttpServlet {
 		if ("login".equals(action)) {
 			String username = request.getParameter("USERNAME");
 			String password = request.getParameter("PASSWORD");
+			String isRember = request.getParameter("isRember");
+			System.out.println("isRember:"+isRember);
 			try {
 				DynamicDict dict = new DynamicDict();
 				dict.setServiceName("VALIDATE_LOGIN");
@@ -62,6 +64,19 @@ public class LoginServlet extends HttpServlet {
 				ServiceFlow.callService(dict);
 				String code = dict.getString("RETURN_CODE");
 				if(code.equals("SUCCESS")){
+					
+					//创建用户名Cookie对象
+					Cookie cookieusername = new Cookie("username",username);
+					cookieusername.setMaxAge(60); //Cookie保存时间
+					//创建用户密码Cookie对象
+					Cookie cookiepassword = new Cookie("password",password);
+					cookiepassword.setMaxAge(60); //Cookie保存时间
+					Cookie cookieisrember = new Cookie("password",isRember);
+					cookieisrember.setMaxAge(60); //Cookie保存时间
+					//添加到客户端
+					response.addCookie(cookieusername);
+					response.addCookie(cookiepassword);
+					
 					memberSession(request, response, dict);
 					response.sendRedirect(LOGIN_SUC);
 				}else{
@@ -83,7 +98,6 @@ public class LoginServlet extends HttpServlet {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	private void memberSession(HttpServletRequest request, HttpServletResponse response, DynamicDict userDict)
 			throws BaseAppException, IOException {
 		HttpSession session = request.getSession();

@@ -86,6 +86,29 @@
 		 session.removeAttribute("LOGIN_VALI_MESSAGE");
 		}
 		%>
+		
+		
+		<%
+		//获取客户端Cookie数组
+		Cookie[] cookies = request.getCookies();
+		boolean bool = false;
+		//预定义保存用户名和密码的变量
+		String username = "";
+		String password = "";
+		if(cookies != null){
+		for(Cookie cookie : cookies) {
+		if("username".equals(cookie.getName())) username= cookie.getValue();
+		if("password".equals(cookie.getName())) password= cookie.getValue();
+		}%>
+		 G("USERNAME").value = '<%=username%>';
+		 G("PASSWORD").value ='<%=password%>';
+		<%
+		}
+		%>
+		
+		// G("USERNAME").value = "admin";
+		// alert(G("isRember").checked);
+	
 	}
 
 	function G(id){
@@ -126,14 +149,14 @@
 					<div id="errorLabel" class="error_label"></div>
 					<ul class="login" style="margin-top: 20px">
 						<li><span class="left">用户名：</span> <span style=""> <input
-								id="USERNAME" name="USERNAME" type="text" class="txt" />
+								id="USERNAME" name="USERNAME" type="text" value="${USERNAME}"  class="txt" />
 
 						</span></li>
 						<li><span class="left">密&nbsp;&nbsp;&nbsp;码：</span> <span
-							style=""> <input id="PASSWORD" name="PASSWORD" type="password" class="txt" />
+							style=""> <input id="PASSWORD" name="PASSWORD" type="password" value="${PASSWORD}"  class="txt" />
 						</span></li>
 
-						<li><span class="left">记住我：</span> <input id="Checkbox1"
+						<li><span class="left">记住我：</span> <input id="isRember" name = "isRember"
 							type="checkbox" /></li>
 
 					</ul>
@@ -148,7 +171,7 @@
 				</span></li>
 				<li class="middle_D"></li>
 				<li class="bottom_A"></li>
-				<li class="bottom_B">版权所有2016，技术支持123@126.com</li>
+				<li class="bottom_B">版权所有2016，技术支持343854933@qq.com</li>
 			</ul>
 		</div>
 	</form>
