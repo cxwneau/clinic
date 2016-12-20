@@ -85,30 +85,30 @@
 		<%
 		 session.removeAttribute("LOGIN_VALI_MESSAGE");
 		}
-		%>
-		
-		
-		<%
 		//获取客户端Cookie数组
 		Cookie[] cookies = request.getCookies();
-		boolean bool = false;
 		//预定义保存用户名和密码的变量
 		String username = "";
 		String password = "";
+		String isRecord = "";
 		if(cookies != null){
 		for(Cookie cookie : cookies) {
 		if("username".equals(cookie.getName())) username= cookie.getValue();
 		if("password".equals(cookie.getName())) password= cookie.getValue();
+		if("isRecord".equals(cookie.getName())) isRecord= cookie.getValue();
 		}%>
-		 G("USERNAME").value = '<%=username%>';
-		 G("PASSWORD").value ='<%=password%>';
+		 var username ='<%=username%>';
+		 var password ='<%=password%>';
+		 var isrecord ='<%=isRecord%>';
+		 //alert(username+":"+password+":"+isrecord);
+		 G("USERNAME").value = username;
+		 G("PASSWORD").value = password;
+		 if(isrecord)G("isRecord").checked = true;
+		 else G("isRecord").checked = false;
 		<%
-		}
-		%>
-		
-		// G("USERNAME").value = "admin";
-		// alert(G("isRember").checked);
-	
+		}else{%>
+		G("isRecord").checked = false;
+		<%}%>
 	}
 
 	function G(id){
@@ -149,14 +149,14 @@
 					<div id="errorLabel" class="error_label"></div>
 					<ul class="login" style="margin-top: 20px">
 						<li><span class="left">用户名：</span> <span style=""> <input
-								id="USERNAME" name="USERNAME" type="text" value="${USERNAME}"  class="txt" />
+								id="USERNAME" name="USERNAME" type="text"  class="txt" />
 
 						</span></li>
 						<li><span class="left">密&nbsp;&nbsp;&nbsp;码：</span> <span
-							style=""> <input id="PASSWORD" name="PASSWORD" type="password" value="${PASSWORD}"  class="txt" />
+							style=""> <input id="PASSWORD" name="PASSWORD" type="password"  class="txt" />
 						</span></li>
 
-						<li><span class="left">记住我：</span> <input id="isRember" name = "isRember"
+						<li><span class="left">记住我：</span> <input id="isRecord" name = "isRecord"
 							type="checkbox" /></li>
 
 					</ul>
